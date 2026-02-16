@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "HappyBooking_Lakehouse"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "20473b01-1e84-bb74-4dce-663beafed1ea"
+  }
+}

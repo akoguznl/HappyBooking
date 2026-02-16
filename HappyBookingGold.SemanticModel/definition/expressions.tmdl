@@ -1,0 +1,11 @@
+expression 'DirectLake - HappyBooking_Lakehouse' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/4469d25c-bf26-4abf-a3d9-12b6ba355076/eafed1ea-663b-4dce-bb74-1e8420473b01", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: b8b6c1b6-217c-4ad3-860d-da4e722fffca
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[bronze_currency_api]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[bronze_hotel_bookings]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[silver_bookings]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[bronze_weather_api]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[bronze_streaming_bookings]"}},"objectType":"Table"}]
+

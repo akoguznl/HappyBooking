@@ -1,0 +1,88 @@
+table gold_hotel_performance
+	lineageTag: 69752398-ad98-4e13-a392-be74ad1d07ab
+	sourceLineageTag: [dbo].[gold_hotel_performance]
+
+	column hotel_name
+		dataType: string
+		lineageTag: 76fa8f63-d2ee-422f-bb91-5b3d7f38bddd
+		sourceLineageTag: hotel_name
+		summarizeBy: none
+		sourceColumn: hotel_name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_bookings
+		dataType: int64
+		formatString: 0
+		lineageTag: d0a26c74-3afe-4c40-9865-ca778e3ed225
+		sourceLineageTag: total_bookings
+		summarizeBy: sum
+		sourceColumn: total_bookings
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: double
+		lineageTag: 20b4ba3b-b24c-4ce8-8762-3ce9f0840c1f
+		sourceLineageTag: total_revenue
+		summarizeBy: sum
+		sourceColumn: total_revenue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_booking_value
+		dataType: double
+		lineageTag: 41dc5330-c457-4a9d-8018-ae9448c02433
+		sourceLineageTag: avg_booking_value
+		summarizeBy: sum
+		sourceColumn: avg_booking_value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_cancellations
+		dataType: double
+		lineageTag: b5237bdf-6234-4ef0-af67-3ea96199afb9
+		sourceLineageTag: total_cancellations
+		summarizeBy: sum
+		sourceColumn: total_cancellations
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cancellation_rate_percentage
+		dataType: double
+		lineageTag: 047f5ae2-7dce-4709-bab4-b93ab1141b04
+		sourceLineageTag: cancellation_rate_percentage
+		summarizeBy: sum
+		sourceColumn: cancellation_rate_percentage
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition gold_hotel_performance = entity
+		mode: directLake
+		source
+			entityName: gold_hotel_performance
+			schemaName: dbo
+			expressionSource: 'DirectLake - HappyBooking_Lakehouse'
+
+	changedProperty = IsHidden
+

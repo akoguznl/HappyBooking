@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "05_Silver_Transformations"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e16b736a-02e5-8d44-444b-f6fa9d3bc236"
+  }
+}

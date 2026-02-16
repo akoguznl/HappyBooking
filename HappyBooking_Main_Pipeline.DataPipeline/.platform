@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "HappyBooking_Main_Pipeline"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "58f14fc5-47ea-9665-4331-752338912e84"
+  }
+}

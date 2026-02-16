@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventstream",
+    "displayName": "HappyBooking_Eventstream"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "834efb7f-c154-88bf-420d-fc3dfd4a5366"
+  }
+}
