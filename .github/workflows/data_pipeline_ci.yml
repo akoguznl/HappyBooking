@@ -39,3 +39,14 @@ jobs:
 
       - name: Final Status
         run: echo "✅ CI Hattı Başarıyla Tamamlandı!"
+        # ... (Daha önceki test adımları burada kalacak)
+
+      - name: Send Slack Notification
+        if: always() # Testler geçse de kalsa da çalışması için
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: ${{ job.status == 'success' ? 'good' : 'danger' }}
+          SLACK_TITLE: "🚀 HappyBooking CI Status"
+          SLACK_MESSAGE: "Data Pipeline Testleri Sonucu: ${{ job.status }}"
+          SLACK_ICON: https://github.com/microsoft.png # İsteğe bağlı
