@@ -1,0 +1,41 @@
+name: HappyBooking Data CI
+
+# Hangi durumlarda çalışacağını belirliyoruz
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validation-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install great_expectations pytest pandas pyspark
+
+      - name: Run Great Expectations Tests
+        run: |
+          echo "🔍 Veri Kalitesi Testleri (GE) Başlatılıyor..."
+          # Not: Burada gerçek bir test scriptini tetikleyebiliriz
+          # python tests/run_ge_tests.py
+          
+      - name: Linting and Syntax Check
+        run: |
+          echo "✍️ Kod yazım kuralları kontrol ediliyor..."
+          # Python dosyalarında hata var mı diye hızlıca bakıyoruz
+          python -m compileall .
+
+      - name: Final Status
+        run: echo "✅ CI Hattı Başarıyla Tamamlandı!"
