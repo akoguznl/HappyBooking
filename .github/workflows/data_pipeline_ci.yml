@@ -1,6 +1,5 @@
 name: HappyBooking Data Pipeline CI/CD
 
-# Workflow'un çalışacağı durumlar
 on:
   push:
     branches: [ main ]
@@ -12,48 +11,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Adım: Kodları GitHub runner'a çek
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. Adım: Python Ortamını Kur
       - name: Set up Python 3.9
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
           cache: 'pip'
 
-      # 3. Adım: Gerekli Kütüphaneleri Yükle
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pandas pyspark great_expectations pytest
 
-      # 4. Adım: Kod Yazım ve Sözdizimi Kontrolü (Linting)
       - name: Python Syntax Check
         run: |
           echo "✍️ Kod yapısı kontrol ediliyor..."
           python -m compileall .
 
-      # 5. Adım: Veri Kalitesi Testlerini Simüle Et (Great Expectations)
       - name: Run Data Quality Tests
         run: |
           echo "🔍 Great Expectations testleri başlatılıyor..."
-          # Eğer projenizde özel bir test scripti varsa buraya ekleyebilirsiniz:
-          # python tests/run_validation.py
-
-      # 6. Adım: Slack Bildirimi Gönder
+          # Buraya gerçek test komutlarını ekleyebilirsin
+          
       - name: Slack Notification
-        if: always() # Testler başarılı olsa da başarısız olsa da bildirimi gönder
+        if: always()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_COLOR: ${{ job.status == 'success' ? 'good' : 'danger' }}
           SLACK_TITLE: "🚀 HappyBooking CI Status: ${{ job.status }}"
-          SLACK_MESSAGE: |
-            *Commit:* ${{ github.event.head_commit.message }}
-            *Author:* ${{ github.actor }}
-            *Status:* ${{ job.status == 'success' ? '✅ Passed' : '❌ Failed' }}
-            *Link:* https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          SLACK_ICON: https://github.com/microsoft.png # Microsoft Fabric ikonu için temsili
+          # Mesajı tek satıra indirgeyerek veya düzgün blok kullanarak hatayı giderdik:
+          SLACK_MESSAGE: "Commit: ${{ github.event.head_commit.message }}\nAuthor: ${{ github.actor }}\nStatus: ${{ job.status }}\nLink: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          SLACK_ICON: https://github.com/microsoft.png
           SLACK_USERNAME: "Fabric-CI-Bot"
