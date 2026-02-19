@@ -1,4 +1,4 @@
-name: HappyBooking Data Pipeline CI/CD
+name: HappyBooking Data Pipeline CI
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -27,22 +26,16 @@ jobs:
 
       - name: Python Syntax Check
         run: |
-          echo "✍️ Kod yapısı kontrol ediliyor..."
+          echo "Checking Python syntax..."
           python -m compileall .
 
-      - name: Run Data Quality Tests
-        run: |
-          echo "🔍 Great Expectations testleri başlatılıyor..."
-          # Buraya gerçek test komutlarını ekleyebilirsin
-          
       - name: Slack Notification
         if: always()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_COLOR: ${{ job.status == 'success' ? 'good' : 'danger' }}
-          SLACK_TITLE: "🚀 HappyBooking CI Status: ${{ job.status }}"
-          # Mesajı tek satıra indirgeyerek veya düzgün blok kullanarak hatayı giderdik:
-          SLACK_MESSAGE: "Commit: ${{ github.event.head_commit.message }}\nAuthor: ${{ github.actor }}\nStatus: ${{ job.status }}\nLink: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_TITLE: "Fabric CI Status: ${{ job.status }}"
+          SLACK_MESSAGE: "Commit: ${{ github.event.head_commit.message }}\nStatus: ${{ job.status }}\nAuthor: ${{ github.actor }}"
           SLACK_ICON: https://github.com/microsoft.png
           SLACK_USERNAME: "Fabric-CI-Bot"
