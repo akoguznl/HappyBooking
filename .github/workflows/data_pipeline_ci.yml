@@ -1,6 +1,6 @@
-name: HappyBooking Data CI
+name: HappyBooking Data Pipeline CI/CD
 
-# Hangi durumlarda çalışacağını belirliyoruz
+# Workflow'un çalışacağı durumlar
 on:
   push:
     branches: [ main ]
@@ -8,45 +8,52 @@ on:
     branches: [ main ]
 
 jobs:
-  validation-job:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      # 1. Adım: Kodları GitHub runner'a çek
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # 2. Adım: Python Ortamını Kur
       - name: Set up Python 3.9
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
+          cache: 'pip'
 
+      # 3. Adım: Gerekli Kütüphaneleri Yükle
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install great_expectations pytest pandas pyspark
+          pip install pandas pyspark great_expectations pytest
 
-      - name: Run Great Expectations Tests
+      # 4. Adım: Kod Yazım ve Sözdizimi Kontrolü (Linting)
+      - name: Python Syntax Check
         run: |
-          echo "🔍 Veri Kalitesi Testleri (GE) Başlatılıyor..."
-          # Not: Burada gerçek bir test scriptini tetikleyebiliriz
-          # python tests/run_ge_tests.py
-          
-      - name: Linting and Syntax Check
-        run: |
-          echo "✍️ Kod yazım kuralları kontrol ediliyor..."
-          # Python dosyalarında hata var mı diye hızlıca bakıyoruz
+          echo "✍️ Kod yapısı kontrol ediliyor..."
           python -m compileall .
 
-      - name: Final Status
-        run: echo "✅ CI Hattı Başarıyla Tamamlandı!"
-        # ... (Daha önceki test adımları burada kalacak)
+      # 5. Adım: Veri Kalitesi Testlerini Simüle Et (Great Expectations)
+      - name: Run Data Quality Tests
+        run: |
+          echo "🔍 Great Expectations testleri başlatılıyor..."
+          # Eğer projenizde özel bir test scripti varsa buraya ekleyebilirsiniz:
+          # python tests/run_validation.py
 
-      - name: Send Slack Notification
-        if: always() # Testler geçse de kalsa da çalışması için
+      # 6. Adım: Slack Bildirimi Gönder
+      - name: Slack Notification
+        if: always() # Testler başarılı olsa da başarısız olsa da bildirimi gönder
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_COLOR: ${{ job.status == 'success' ? 'good' : 'danger' }}
-          SLACK_TITLE: "🚀 HappyBooking CI Status"
-          SLACK_MESSAGE: "Data Pipeline Testleri Sonucu: ${{ job.status }}"
-          SLACK_ICON: https://github.com/microsoft.png # İsteğe bağlı
+          SLACK_TITLE: "🚀 HappyBooking CI Status: ${{ job.status }}"
+          SLACK_MESSAGE: |
+            *Commit:* ${{ github.event.head_commit.message }}
+            *Author:* ${{ github.actor }}
+            *Status:* ${{ job.status == 'success' ? '✅ Passed' : '❌ Failed' }}
+            *Link:* https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SLACK_ICON: https://github.com/microsoft.png # Microsoft Fabric ikonu için temsili
+          SLACK_USERNAME: "Fabric-CI-Bot"
