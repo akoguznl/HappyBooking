@@ -1,0 +1,13 @@
+# Veri İşleme ve Analiz
+pandas
+pyspark
+
+# Azure Bağlantısı (Streaming için)
+azure-eventhub
+
+# Veri Kalitesi ve Test (CI/CD için)
+great_expectations
+pytest
+
+# API Simülasyonu (Eğer Flask/FastAPI kullanıyorsan ekle)
+flask
