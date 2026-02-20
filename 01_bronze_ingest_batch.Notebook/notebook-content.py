@@ -22,43 +22,111 @@
 
 # CELL ********************
 
-# 1. CSV dosyasının yolunu tanımla
-# Not: Dosya yolunu 'Files/raw_data/hotel_raw_batch.csv' olarak güncelleyebilirsin
-file_path = "Files/raw_data/hotel_raw_batch.csv" 
+"""
+╔══════════════════════════════════════════════════════════════════╗
+║         HappyBooking — Bronze Layer: Batch Ingest                ║
+║         hotel_raw_batch.csv → bronze_hotel_bookings (Delta)      ║
+╚══════════════════════════════════════════════════════════════════╝
+"""
 
-# 2. Spark ile CSV'yi oku
-# Bronze katmanında veri tipini Spark'ın tahmin etmesine (inferSchema) izin veriyoruz
+from pyspark.sql.functions import (
+    col, current_timestamp, lit, input_file_name
+)
+
+# ─────────────────────────────────────────────────────────────────
+# AYARLAR
+# ─────────────────────────────────────────────────────────────────
+FILE_PATH  = "Files/raw_data/hotel_raw_batch.csv"
+TABLE_NAME = "bronze_hotel_bookings"
+SOURCE_TAG = "Batch_CSV"
+
+print("=" * 60)
+print("📥 HappyBooking — Bronze Batch Ingest")
+print("=" * 60)
+
+# ─────────────────────────────────────────────────────────────────
+# 1. CSV'Yİ OKU
+# ─────────────────────────────────────────────────────────────────
+print(f"\n📂 Dosya okunuyor: {FILE_PATH}")
+
 df_bronze = spark.read.format("csv") \
     .option("header", "true") \
     .option("inferSchema", "true") \
     .option("sep", ",") \
-    .load(file_path)
+    .option("multiLine", "true") \
+    .option("escape", '"') \
+    .load(FILE_PATH)
 
-# 3. Kolon isimlerindeki boşlukları ve özel karakterleri temizleyelim 
-# (Delta tabloları kolon isimlerinde boşluk sevmez)
-from pyspark.sql.functions import col
-for column in df_bronze.columns:
-    new_column = column.replace(" ", "_").replace("(", "").replace(")", "").lower()
-    df_bronze = df_bronze.withColumnRenamed(column, new_column)
+raw_count = df_bronze.count()
+print(f"  Ham satır sayısı  : {raw_count:,}")
+print(f"  Kolon sayısı      : {len(df_bronze.columns)}")
 
-# 4. Bronze Tablosu olarak kaydet
-# Bronze katmanında veriyi olduğu gibi (Raw) saklıyoruz
-table_name = "bronze_hotel_bookings"
-df_bronze.write.format("delta").mode("overwrite").saveAsTable(table_name)
+# ─────────────────────────────────────────────────────────────────
+# 2. KOLON İSİMLERİNİ TEMİZLE
+# ─────────────────────────────────────────────────────────────────
+print("\n🔧 Kolon isimleri temizleniyor...")
+rename_map = {}
+for col_name in df_bronze.columns:
+    clean = (col_name
+             .strip()
+             .lower()
+             .replace(" ", "_")
+             .replace("(", "")
+             .replace(")", "")
+             .replace("-", "_")
+             .replace("/", "_"))
+    if clean != col_name:
+        rename_map[col_name] = clean
+        print(f"  '{col_name}' → '{clean}'")
 
-print(f"Başarılı: {table_name} tablosu oluşturuldu.")
+for old, new in rename_map.items():
+    df_bronze = df_bronze.withColumnRenamed(old, new)
 
-# METADATA ********************
+# ─────────────────────────────────────────────────────────────────
+# 3. BRONZE METADATA KOLONLARI EKLE
+# ─────────────────────────────────────────────────────────────────
+print("\n🔧 Metadata kolonları ekleniyor...")
 
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
+df_bronze = df_bronze \
+    .withColumn("_source",               lit(SOURCE_TAG)) \
+    .withColumn("_ingestion_timestamp",  current_timestamp()) \
+    .withColumn("_source_file",          input_file_name())
 
-# CELL ********************
+print("  ✅ _source, _ingestion_timestamp, _source_file eklendi")
 
-df = spark.sql("SELECT * FROM HappyBooking_Lakehouse.dbo.bronze_hotel_bookings LIMIT 1000")
-display(df)
+# ─────────────────────────────────────────────────────────────────
+# 4. SCHEMA KONTROLÜ
+# ─────────────────────────────────────────────────────────────────
+print("\n📋 Schema:")
+df_bronze.printSchema()
+
+# ─────────────────────────────────────────────────────────────────
+# 5. BRONZE TABLOSUNA KAYDET (Delta)
+# ─────────────────────────────────────────────────────────────────
+print(f"\n💾 Delta tablosuna yazılıyor: {TABLE_NAME}")
+
+df_bronze.write \
+    .format("delta") \
+    .mode("overwrite") \
+    .option("overwriteSchema", "true") \
+    .saveAsTable(TABLE_NAME)
+
+# ─────────────────────────────────────────────────────────────────
+# 6. DOĞRULAMA
+# ─────────────────────────────────────────────────────────────────
+df_check = spark.read.table(TABLE_NAME)
+saved_count = df_check.count()
+
+print("\n" + "=" * 60)
+print("📊 BRONZE BATCH INGEST ÖZET")
+print("=" * 60)
+print(f"  Kaynak dosya      : {FILE_PATH}")
+print(f"  Hedef tablo       : {TABLE_NAME}")
+print(f"  Okunan satır      : {raw_count:,}")
+print(f"  Kaydedilen satır  : {saved_count:,}")
+print(f"  Durum             : {'✅ Eşleşiyor' if raw_count == saved_count else '❌ UYUMSUZ!'}")
+print("=" * 60)
+print(f"\n✅ '{TABLE_NAME}' tablosu başarıyla oluşturuldu!")
 
 # METADATA ********************
 
