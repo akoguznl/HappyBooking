@@ -4,7 +4,7 @@
       {
         "type": "TridentNotebook",
         "typeProperties": {
-          "notebookId": "455e413d-192d-959d-4cb4-959ac1637a98",
+          "notebookId": "55cb69ac-5610-8ba2-484e-e2acb3f15aca",
           "workspaceId": "00000000-0000-0000-0000-000000000000"
         },
         "policy": {
@@ -14,48 +14,10 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Batch",
-        "dependsOn": []
-      },
-      {
-        "type": "TridentNotebook",
-        "typeProperties": {
-          "notebookId": "48ff6e87-1cb1-b689-452b-8f5d95f46f9b",
-          "workspaceId": "00000000-0000-0000-0000-000000000000"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Stream",
-        "dependsOn": []
-      },
-      {
-        "type": "TridentNotebook",
-        "typeProperties": {
-          "notebookId": "e16b736a-02e5-8d44-444b-f6fa9d3bc236",
-          "workspaceId": "00000000-0000-0000-0000-000000000000"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Silver Layer",
+        "name": "04_silver_transformations",
         "dependsOn": [
           {
-            "activity": "Batch",
-            "dependencyConditions": [
-              "Completed"
-            ]
-          },
-          {
-            "activity": "Stream",
+            "activity": "03_bronze_api_enrichment",
             "dependencyConditions": [
               "Completed"
             ]
@@ -65,7 +27,7 @@
       {
         "type": "TridentNotebook",
         "typeProperties": {
-          "notebookId": "d9ebe351-b9c5-9fc0-4a75-7c807ecd980b",
+          "notebookId": "eefb5b68-87d2-a556-4845-76ee12b86763",
           "workspaceId": "00000000-0000-0000-0000-000000000000"
         },
         "policy": {
@@ -75,10 +37,10 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Gold Layer",
+        "name": "05_gold_dbt_models",
         "dependsOn": [
           {
-            "activity": "Silver Layer",
+            "activity": "04_silver_transformations",
             "dependencyConditions": [
               "Completed"
             ]
@@ -86,12 +48,10 @@
         ]
       },
       {
-        "type": "PBISemanticModelRefresh",
+        "type": "TridentNotebook",
         "typeProperties": {
-          "method": "POST",
-          "groupId": "4469d25c-bf26-4abf-a3d9-12b6ba355076",
-          "datasetId": "4e35a2d9-e892-4b9a-8f42-74d8cb4a2159",
-          "operationType": "SemanticModelRefresh"
+          "notebookId": "d3a506ec-f027-8e01-4c02-be7701e3f485",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
         },
         "policy": {
           "timeout": "0.12:00:00",
@@ -100,12 +60,72 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Semantic model refresh1",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
+        "name": "01_bronze_ingest_batch",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "4088cbc7-4d66-842c-4e8a-f0e14cb5cc1c",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "02_stream_to_bronze",
         "dependsOn": [
           {
-            "activity": "Gold Layer",
+            "activity": "01_bronze_ingest_batch",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "7b3c15de-f981-9417-44a6-953fb3290d9c",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "03_bronze_api_enrichment",
+        "dependsOn": [
+          {
+            "activity": "02_stream_to_bronze",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "606ae18e-65d3-b3a2-4b62-d7cf4e9364e1",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "06_quality_tests_ge",
+        "dependsOn": [
+          {
+            "activity": "05_gold_dbt_models",
             "dependencyConditions": [
               "Completed"
             ]

@@ -1,11 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "SemanticModel",
-    "displayName": "HappyBookingGold"
+    "type": "Notebook",
+    "displayName": "05_gold_dbt_models",
+    "description": "New notebook"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "cb4a2159-74d8-8f42-4b9a-e8924e35a2d9"
+    "logicalId": "eefb5b68-87d2-a556-4845-76ee12b86763"
   }
 }

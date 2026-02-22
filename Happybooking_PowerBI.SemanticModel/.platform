@@ -1,11 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "Notebook",
-    "displayName": "05_Silver_Transformations"
+    "type": "SemanticModel",
+    "displayName": "Happybooking_PowerBI"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "e16b736a-02e5-8d44-444b-f6fa9d3bc236"
+    "logicalId": "bf98758c-6a4d-b8d0-4ffe-7cfe586a377a"
   }
 }

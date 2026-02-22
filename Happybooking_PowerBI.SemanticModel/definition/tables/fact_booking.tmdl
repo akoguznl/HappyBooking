@@ -1,0 +1,419 @@
+table fact_booking
+	lineageTag: f772dc87-1a2e-44ba-8d27-9da951df7360
+	sourceLineageTag: [gold].[fact_booking]
+
+	column booking_id
+		dataType: string
+		lineageTag: 21f280a2-cc80-4601-a1fe-3e66d575f709
+		sourceLineageTag: booking_id
+		summarizeBy: none
+		sourceColumn: booking_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column booking_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e12f96fd-2ab7-4df1-be9c-74f9567af862
+		sourceLineageTag: booking_date
+		summarizeBy: none
+		sourceColumn: booking_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column booking_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a8024dd-8537-4b40-b22b-02f91fccd0a1
+		sourceLineageTag: booking_year
+		summarizeBy: sum
+		sourceColumn: booking_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column booking_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 78f497b3-ba34-4150-a67d-0e72e0c4ea57
+		sourceLineageTag: booking_month
+		summarizeBy: sum
+		sourceColumn: booking_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column checkin_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a251299f-5376-4951-b77a-d5311d4fd3af
+		sourceLineageTag: checkin_date
+		summarizeBy: none
+		sourceColumn: checkin_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column checkout_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cf20e98f-97d2-4b66-8c33-cead445232dd
+		sourceLineageTag: checkout_date
+		summarizeBy: none
+		sourceColumn: checkout_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column stay_nights
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a03a3bd-925b-456f-a133-3b5b8b65ffb4
+		sourceLineageTag: stay_nights
+		summarizeBy: sum
+		sourceColumn: stay_nights
+
+		annotation SummarizationSetBy = Automatic
+
+	column booking_status
+		dataType: string
+		lineageTag: 0cb6bb89-2df0-4211-9ff2-48945fb86838
+		sourceLineageTag: booking_status
+		summarizeBy: none
+		sourceColumn: booking_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column booking_channel
+		dataType: string
+		lineageTag: 83d2dceb-9105-4d75-bb13-dc79dc8a17cc
+		sourceLineageTag: booking_channel
+		summarizeBy: none
+		sourceColumn: booking_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column booking_source
+		dataType: string
+		lineageTag: ec568f96-4e1e-437a-81d5-ad2a887a2e36
+		sourceLineageTag: booking_source
+		summarizeBy: none
+		sourceColumn: booking_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_cancelled
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5d6965f0-59f8-43c1-8cf0-818c1d8e7bbf
+		sourceLineageTag: is_cancelled
+		summarizeBy: none
+		sourceColumn: is_cancelled
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancellation_date
+		dataType: string
+		lineageTag: 364b334c-2575-48e4-93c8-94b049bb0923
+		sourceLineageTag: cancellation_date
+		summarizeBy: none
+		sourceColumn: cancellation_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancellation_reason
+		dataType: string
+		lineageTag: 2dbaa817-8d6c-4b00-87f1-0b9c1e649268
+		sourceLineageTag: cancellation_reason
+		summarizeBy: none
+		sourceColumn: cancellation_reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 4d23f4e5-92cc-4e52-8dd8-7ceb18a90da2
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: df4c235d-cec1-43f3-9229-7bfb7336ba5e
+		sourceLineageTag: customer_name
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_country
+		dataType: string
+		lineageTag: ddebca41-1c05-44ac-b77d-f46a82550bc7
+		sourceLineageTag: customer_country
+		summarizeBy: none
+		sourceColumn: customer_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		lineageTag: dff90377-f4ea-4b2a-a862-d170549d1d60
+		sourceLineageTag: customer_city
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column loyalty_level
+		dataType: string
+		lineageTag: 9a93efa4-702d-4aae-a3da-32a1e432bd9c
+		sourceLineageTag: loyalty_level
+		summarizeBy: none
+		sourceColumn: loyalty_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column language_preference
+		dataType: string
+		lineageTag: 1617d942-2bba-46c9-9abc-ea530937007e
+		sourceLineageTag: language_preference
+		summarizeBy: none
+		sourceColumn: language_preference
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_id
+		dataType: string
+		lineageTag: 5663c8bb-5ff1-4309-9a3b-8dac511adb0c
+		sourceLineageTag: hotel_id
+		summarizeBy: none
+		sourceColumn: hotel_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_name
+		dataType: string
+		lineageTag: 1b140399-2cdb-4325-86a9-94ded8dfca1a
+		sourceLineageTag: hotel_name
+		summarizeBy: none
+		sourceColumn: hotel_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_country
+		dataType: string
+		lineageTag: 31be60ac-875c-4808-839a-79f0a9c3d61b
+		sourceLineageTag: hotel_country
+		summarizeBy: none
+		sourceColumn: hotel_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_city
+		dataType: string
+		lineageTag: 3c9c41b9-4866-4619-9ae3-241231ec0ce9
+		sourceLineageTag: hotel_city
+		summarizeBy: none
+		sourceColumn: hotel_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_type
+		dataType: string
+		lineageTag: 520603b8-2671-4c2c-a37c-08b2f5802703
+		sourceLineageTag: hotel_type
+		summarizeBy: none
+		sourceColumn: hotel_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column star_rating
+		dataType: string
+		lineageTag: bc7b5d5f-1bac-44de-b547-ad05954a7379
+		sourceLineageTag: star_rating
+		summarizeBy: none
+		sourceColumn: star_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column room_type
+		dataType: string
+		lineageTag: 265acce3-b676-4a66-95fd-2521371e340b
+		sourceLineageTag: room_type
+		summarizeBy: none
+		sourceColumn: room_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column rooms_booked
+		dataType: string
+		lineageTag: 33e22384-a235-4874-a6bc-2749d2db5a64
+		sourceLineageTag: rooms_booked
+		summarizeBy: none
+		sourceColumn: rooms_booked
+
+		annotation SummarizationSetBy = Automatic
+
+	column adults
+		dataType: string
+		lineageTag: c9bc846f-56a4-4e39-b09a-2dbf6ccb1164
+		sourceLineageTag: adults
+		summarizeBy: none
+		sourceColumn: adults
+
+		annotation SummarizationSetBy = Automatic
+
+	column children
+		dataType: string
+		lineageTag: dce79ba2-2be8-45d1-8498-9e3a70ee4698
+		sourceLineageTag: children
+		summarizeBy: none
+		sourceColumn: children
+
+		annotation SummarizationSetBy = Automatic
+
+	column infants
+		dataType: string
+		lineageTag: 44709859-5db2-4eec-8c70-5353f2e95f3d
+		sourceLineageTag: infants
+		summarizeBy: none
+		sourceColumn: infants
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_guests
+		dataType: int64
+		formatString: 0
+		lineageTag: 89f7c2a7-d315-4b0e-a750-e07f30530065
+		sourceLineageTag: num_guests
+		summarizeBy: sum
+		sourceColumn: num_guests
+
+		annotation SummarizationSetBy = Automatic
+
+	column special_requests
+		dataType: string
+		lineageTag: 6b683a8b-34e0-4027-a8b7-b4683f9a6717
+		sourceLineageTag: special_requests
+		summarizeBy: none
+		sourceColumn: special_requests
+
+		annotation SummarizationSetBy = Automatic
+
+	column promotion_code
+		dataType: string
+		lineageTag: 984d0e4a-1696-41b5-b82f-40a81d99156d
+		sourceLineageTag: promotion_code
+		summarizeBy: none
+		sourceColumn: promotion_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_price
+		dataType: double
+		lineageTag: c84724f6-f8dc-4595-8589-cd882a724e8f
+		sourceLineageTag: total_price
+		summarizeBy: sum
+		sourceColumn: total_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column room_price
+		dataType: double
+		lineageTag: 5d9f5233-0f11-4a24-b061-63cad716069c
+		sourceLineageTag: room_price
+		summarizeBy: sum
+		sourceColumn: room_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tax_amount
+		dataType: double
+		lineageTag: 9bd1b8ac-ae9a-470b-8b68-716ffab0a6cf
+		sourceLineageTag: tax_amount
+		summarizeBy: sum
+		sourceColumn: tax_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column service_fee
+		dataType: double
+		lineageTag: fad6222b-a713-44fd-9784-7a078040c367
+		sourceLineageTag: service_fee
+		summarizeBy: sum
+		sourceColumn: service_fee
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column paid_amount
+		dataType: double
+		lineageTag: 3ab5488d-090a-40bf-bb11-91d501baf752
+		sourceLineageTag: paid_amount
+		summarizeBy: sum
+		sourceColumn: paid_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_amount
+		dataType: double
+		lineageTag: 1de5f625-7462-4ef6-bd61-9e64856a11f0
+		sourceLineageTag: discount_amount
+		summarizeBy: sum
+		sourceColumn: discount_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column payment_status
+		dataType: string
+		lineageTag: d0f11cf8-9769-482e-b593-44e862833154
+		sourceLineageTag: payment_status
+		summarizeBy: none
+		sourceColumn: payment_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: 568bc2d9-50a4-452b-9f05-fe3d8afab796
+		sourceLineageTag: payment_method
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_source
+		dataType: string
+		lineageTag: c2848480-e19b-44dc-9850-80525baa5f8f
+		sourceLineageTag: data_source
+		summarizeBy: none
+		sourceColumn: data_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column silver_load_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: df3560e0-ee8f-4684-a13b-338c43d864d9
+		sourceLineageTag: silver_load_at
+		summarizeBy: none
+		sourceColumn: silver_load_at
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_booking = entity
+		mode: directLake
+		source
+			entityName: fact_booking
+			schemaName: gold
+			expressionSource: 'DirectLake - HappyBooking_Warehouse'
+

@@ -1,0 +1,123 @@
+table dim_hotel
+	lineageTag: a10a6308-61a5-47aa-9196-2b5ad62d8722
+	sourceLineageTag: [gold].[dim_hotel]
+
+	column hotel_id
+		dataType: string
+		lineageTag: 17ca8890-385c-4bda-bd23-2171671aea3e
+		sourceLineageTag: hotel_id
+		summarizeBy: none
+		sourceColumn: hotel_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_name
+		dataType: string
+		lineageTag: ed12e7ed-a838-40e7-9528-2eb99f5e406a
+		sourceLineageTag: hotel_name
+		summarizeBy: none
+		sourceColumn: hotel_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: e9599edf-3176-4638-8a33-ea5b984af95b
+		sourceLineageTag: country
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 89138cb2-29de-4808-a0d5-e63b3976e53e
+		sourceLineageTag: city
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_type
+		dataType: string
+		lineageTag: 340ddd6d-df88-48c8-9a63-1717e6ffb211
+		sourceLineageTag: hotel_type
+		summarizeBy: none
+		sourceColumn: hotel_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column star_rating
+		dataType: string
+		lineageTag: 54845598-e8bd-4599-a4a8-b593e3f96835
+		sourceLineageTag: star_rating
+		summarizeBy: none
+		sourceColumn: star_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_rooms
+		dataType: string
+		lineageTag: 359f3d49-1e34-4345-aa34-ffe742f2eef2
+		sourceLineageTag: total_rooms
+		summarizeBy: none
+		sourceColumn: total_rooms
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_facilities
+		dataType: string
+		lineageTag: 2ff3306e-ad89-4c52-9ac4-b41d1753692b
+		sourceLineageTag: hotel_facilities
+		summarizeBy: none
+		sourceColumn: hotel_facilities
+
+		annotation SummarizationSetBy = Automatic
+
+	column nearby_attractions
+		dataType: string
+		lineageTag: a97d2b65-980a-4a6b-90d3-d1d8a00a2447
+		sourceLineageTag: nearby_attractions
+		summarizeBy: none
+		sourceColumn: nearby_attractions
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: 86c0d312-683e-4b08-9939-fdad02530fb5
+		sourceLineageTag: latitude
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: a77063b5-4efb-489e-a1d4-bb854369c1a1
+		sourceLineageTag: longitude
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column website
+		dataType: string
+		lineageTag: 7a855167-3eb7-4bd3-a2e7-73166853c356
+		sourceLineageTag: website
+		summarizeBy: none
+		sourceColumn: website
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_hotel = entity
+		mode: directLake
+		source
+			entityName: dim_hotel
+			schemaName: gold
+			expressionSource: 'DirectLake - HappyBooking_Warehouse'
+

@@ -1,0 +1,185 @@
+table kpi_revenue
+	lineageTag: 8f324a4f-aa13-4576-ac8b-1b8303a5dd8b
+	sourceLineageTag: [gold].[kpi_revenue]
+
+	column booking_year
+		dataType: int64
+		formatString: 0
+		lineageTag: cef074a2-6b72-41d1-bf5c-1d6a00b1067f
+		sourceLineageTag: booking_year
+		summarizeBy: sum
+		sourceColumn: booking_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column booking_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 268db6ce-6357-4ebf-b691-84be31ed4153
+		sourceLineageTag: booking_month
+		summarizeBy: sum
+		sourceColumn: booking_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_city
+		dataType: string
+		lineageTag: 469dbc47-8c4e-402d-9832-e61bf6fddc1c
+		sourceLineageTag: hotel_city
+		summarizeBy: none
+		sourceColumn: hotel_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column hotel_country
+		dataType: string
+		lineageTag: d2b89edc-d92b-4c95-a71f-de9ae032b8ff
+		sourceLineageTag: hotel_country
+		summarizeBy: none
+		sourceColumn: hotel_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_bookings
+		dataType: int64
+		formatString: 0
+		lineageTag: ee8300b3-3137-4140-a55a-9e6dbb6211b5
+		sourceLineageTag: total_bookings
+		summarizeBy: sum
+		sourceColumn: total_bookings
+
+		annotation SummarizationSetBy = Automatic
+
+	column confirmed_bookings
+		dataType: int64
+		formatString: 0
+		lineageTag: caa510c2-89a7-4894-8d23-54ff0298d5d0
+		sourceLineageTag: confirmed_bookings
+		summarizeBy: sum
+		sourceColumn: confirmed_bookings
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancelled_bookings
+		dataType: int64
+		formatString: 0
+		lineageTag: ff5af373-7990-4478-867b-173c4e795fb3
+		sourceLineageTag: cancelled_bookings
+		summarizeBy: sum
+		sourceColumn: cancelled_bookings
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_revenue
+		dataType: double
+		lineageTag: c2014e2e-2a7a-4eeb-8622-a7396330929c
+		sourceLineageTag: gross_revenue
+		summarizeBy: sum
+		sourceColumn: gross_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column collected_revenue
+		dataType: double
+		lineageTag: c52b16f9-14ee-4dba-8f75-42393ca8d73d
+		sourceLineageTag: collected_revenue
+		summarizeBy: sum
+		sourceColumn: collected_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_discounts
+		dataType: double
+		lineageTag: fcd5e982-6a74-426d-8db8-509b2c0644d8
+		sourceLineageTag: total_discounts
+		summarizeBy: sum
+		sourceColumn: total_discounts
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_booking_value
+		dataType: double
+		lineageTag: 76070d9a-1f45-4dca-80f6-d5796f35935f
+		sourceLineageTag: avg_booking_value
+		summarizeBy: sum
+		sourceColumn: avg_booking_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_nights
+		dataType: int64
+		formatString: 0
+		lineageTag: 63cfe1d1-c8ec-487c-aa6c-f9f4a86eb4a4
+		sourceLineageTag: total_nights
+		summarizeBy: sum
+		sourceColumn: total_nights
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_stay_nights
+		dataType: double
+		lineageTag: 0fe0d92c-173e-4b75-a2a7-8561932b726b
+		sourceLineageTag: avg_stay_nights
+		summarizeBy: sum
+		sourceColumn: avg_stay_nights
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unique_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: cecb1d0c-5df6-4227-9130-dd9b5e961edb
+		sourceLineageTag: unique_customers
+		summarizeBy: sum
+		sourceColumn: unique_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_hotels
+		dataType: int64
+		formatString: 0
+		lineageTag: cdc809dc-861a-4ac8-adc4-4a78cc95bf48
+		sourceLineageTag: active_hotels
+		summarizeBy: sum
+		sourceColumn: active_hotels
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancellation_rate
+		dataType: double
+		lineageTag: c5f05c10-e252-457d-bb8f-f14b55fad717
+		sourceLineageTag: cancellation_rate
+		summarizeBy: sum
+		sourceColumn: cancellation_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column revenue_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: b5b6505c-a1e1-431e-8d56-78dafd376e3b
+		sourceLineageTag: revenue_rank
+		summarizeBy: sum
+		sourceColumn: revenue_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition kpi_revenue = entity
+		mode: directLake
+		source
+			entityName: kpi_revenue
+			schemaName: gold
+			expressionSource: 'DirectLake - HappyBooking_Warehouse'
+

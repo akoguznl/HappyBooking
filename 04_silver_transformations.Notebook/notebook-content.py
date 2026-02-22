@@ -45,7 +45,7 @@ from pyspark.sql.functions import (
     col, to_date, current_timestamp, lit,
     trim, upper, lower, when, regexp_replace,
     datediff, abs as spark_abs, round as spark_round,
-    count, isnan
+    count, isnan, coalesce
 )
 from pyspark.sql.types import DoubleType, IntegerType
 from datetime import datetime
@@ -130,12 +130,17 @@ log_step("Duplicate Temizleme", df_no_nulls, df_dedup,
 # ─────────────────────────────────────────────────────────────────
 print("\n🔧 ADIM 5: Veri tipleri dönüştürülüyor...")
 
+# num_guests sendeki adults, children ve infants kolonlarından hesaplanarak oluşturuldu
 df_typed = df_dedup \
     .withColumn("booking_date",  to_date(col("booking_date"))) \
     .withColumn("checkin_date",  to_date(col("checkin_date"))) \
     .withColumn("checkout_date", to_date(col("checkout_date"))) \
     .withColumn("total_price",   col("total_price").cast(DoubleType())) \
-    .withColumn("num_guests",    col("num_guests").cast(IntegerType()))
+    .withColumn("num_guests", (
+        coalesce(col("adults").cast(IntegerType()), lit(0)) + 
+        coalesce(col("children").cast(IntegerType()), lit(0)) + 
+        coalesce(col("infants").cast(IntegerType()), lit(0))
+    ))
 
 # Tarih dönüşümü sonrası oluşan NULL'ları da temizle
 df_typed = df_typed.dropna(subset=["booking_date", "checkin_date", "checkout_date"])
@@ -149,15 +154,16 @@ print("  ✅ Tarih ve sayısal tipler dönüştürüldü.")
 # ─────────────────────────────────────────────────────────────────
 print("\n🔧 ADIM 6: Metin standardizasyonu yapılıyor...")
 
+# customer_name yerine sendeki mevcut olan full_name kolonu kullanıldı
 df_text_clean = df_typed \
     .withColumn("hotel_name", trim(upper(col("hotel_name")))) \
     .withColumn("city",       trim(upper(col("city")))) \
     .withColumn("country",    trim(upper(col("country")))) \
-    .withColumn("customer_name",
-                trim(regexp_replace(col("customer_name"), r"\s+", " ")))
+    .withColumn("full_name",
+                trim(regexp_replace(col("full_name"), r"\s+", " ")))
 
 print("  ✅ hotel_name, city, country → UPPER + TRIM")
-print("  ✅ customer_name → ekstra boşluklar temizlendi")
+print("  ✅ full_name → ekstra boşluklar temizlendi")
 
 # ─────────────────────────────────────────────────────────────────
 # 7. KATEGORİK STANDARDİZASYON
@@ -168,7 +174,7 @@ print("\n🔧 ADIM 7: Kategorik değerler standardize ediliyor...")
 df_categorical = df_text_clean.withColumn("room_type",
     when(lower(col("room_type")).isin("single", "sngl", "1"), "SINGLE")
     .when(lower(col("room_type")).isin("double", "dbl", "2"),  "DOUBLE")
-    .when(lower(col("room_type")).isin("suite", "ste"),        "SUITE")
+    .when(lower(col("room_type")).isin("suite", "ste"),         "SUITE")
     .when(lower(col("room_type")).isin("twin"),                "TWIN")
     .otherwise(upper(col("room_type")))
 )
@@ -272,10 +278,10 @@ retention_rate = round((final_count / total_raw) * 100, 2)
 print("\n" + "=" * 60)
 print("📊 SILVER TRANSFORMATION ÖZET RAPORU")
 print("=" * 60)
-print(f"  Ham veri (Bronze)    : {total_raw:,} satır")
-print(f"  Silver veri          : {final_count:,} satır")
-print(f"  Toplam silinen       : {total_dropped:,} satır")
-print(f"  Veri tutma oranı     : %{retention_rate}")
+print(f"  Ham veri (Bronze)     : {total_raw:,} satır")
+print(f"  Silver veri           : {final_count:,} satır")
+print(f"  Toplam silinen        : {total_dropped:,} satır")
+print(f"  Veri tutma oranı      : %{retention_rate}")
 print()
 print("  Adım bazlı detay:")
 for entry in audit_log:

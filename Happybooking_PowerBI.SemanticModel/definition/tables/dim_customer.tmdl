@@ -1,0 +1,155 @@
+table dim_customer
+	lineageTag: 1095dca7-1a19-4221-890c-60be09201800
+	sourceLineageTag: [gold].[dim_customer]
+
+	column customer_id
+		dataType: string
+		lineageTag: 424c9a09-e436-4573-826c-46f7b05e0039
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_name
+		dataType: string
+		lineageTag: 9fdb09a6-71be-41e0-8348-1231e137356e
+		sourceLineageTag: first_name
+		summarizeBy: none
+		sourceColumn: first_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_name
+		dataType: string
+		lineageTag: ee1f2257-8c5f-49e4-a598-d147cb70b7e9
+		sourceLineageTag: last_name
+		summarizeBy: none
+		sourceColumn: last_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_name
+		dataType: string
+		lineageTag: 2310fabe-630e-48e5-9a36-ae17bf36562d
+		sourceLineageTag: full_name
+		summarizeBy: none
+		sourceColumn: full_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: bc46343e-281e-4a5e-8162-025b45769dc4
+		sourceLineageTag: email
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		lineageTag: d818bb9e-68b7-46b3-a4a9-8dc107aacb48
+		sourceLineageTag: phone
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_date
+		dataType: string
+		lineageTag: dc23f309-7bcd-4af4-81a4-22c2a64a663b
+		sourceLineageTag: birth_date
+		summarizeBy: none
+		sourceColumn: birth_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: 0e117731-dd31-45ca-bcf2-3c3e637ef5e5
+		sourceLineageTag: gender
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: e5b38af5-ba32-46b1-92a9-e5cb73264461
+		sourceLineageTag: country
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 167772fe-e0e6-40bc-a1f0-593e3920a650
+		sourceLineageTag: city
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 8d877638-8016-4cd2-8e3b-e69c8dabdc75
+		sourceLineageTag: address
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: 7d61a5e0-757e-4b01-a29d-89d9dde657ce
+		sourceLineageTag: postal_code
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column language_preference
+		dataType: string
+		lineageTag: 4c489c3f-6148-4122-bdb8-7cac3130edc0
+		sourceLineageTag: language_preference
+		summarizeBy: none
+		sourceColumn: language_preference
+
+		annotation SummarizationSetBy = Automatic
+
+	column loyalty_level
+		dataType: string
+		lineageTag: 8ee43503-030a-4dc6-8904-9247765c3eb6
+		sourceLineageTag: loyalty_level
+		summarizeBy: none
+		sourceColumn: loyalty_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column registration_date
+		dataType: string
+		lineageTag: c51c1a85-d02e-44c1-be57-3ab13d0dc17b
+		sourceLineageTag: registration_date
+		summarizeBy: none
+		sourceColumn: registration_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketing_consent
+		dataType: string
+		lineageTag: c589863f-be58-4437-b4f9-cae54b6b1d0b
+		sourceLineageTag: marketing_consent
+		summarizeBy: none
+		sourceColumn: marketing_consent
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: gold
+			expressionSource: 'DirectLake - HappyBooking_Warehouse'
+

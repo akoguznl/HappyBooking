@@ -1,0 +1,57 @@
+{
+  "sources": [
+    {
+      "id": "86eebc12-884a-4e6b-98b7-7389df93ba54",
+      "name": "docker_stream_source",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "41ba85be-3de8-40a0-80ee-474c48b720c3",
+      "name": "Lakehouse",
+      "type": "Lakehouse",
+      "properties": {
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "20473b01-1e84-bb74-4dce-663beafed1ea",
+        "schema": "dbo",
+        "deltaTable": "bronze_streaming_bookings",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "HappyBooking_Eventstream-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "HappyBooking_Eventstream-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "ef7f298a-9da1-4b20-abc3-c027a80056bd",
+      "name": "HappyBooking_Eventstream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "docker_stream_source"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}

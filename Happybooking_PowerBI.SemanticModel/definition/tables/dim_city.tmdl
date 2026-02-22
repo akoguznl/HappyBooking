@@ -1,0 +1,70 @@
+table dim_city
+	lineageTag: cd284322-3e95-4fbf-95cc-4e27397bf79d
+	sourceLineageTag: [gold].[dim_city]
+
+	column city_name
+		dataType: string
+		lineageTag: 12fb64c8-bd20-4e8e-9553-7e134614f4a8
+		sourceLineageTag: city_name
+		summarizeBy: none
+		sourceColumn: city_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: f52c3ea3-2526-4cc7-b087-e8684af27fca
+		sourceLineageTag: country
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: 29ce7393-c478-4187-9ece-19485c9df656
+		sourceLineageTag: latitude
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: e9c47491-182a-4444-9c39-143b57fcead0
+		sourceLineageTag: longitude
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hotel_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 24ff16f3-5e34-495c-91d1-334b0347a0f8
+		sourceLineageTag: hotel_count
+		summarizeBy: sum
+		sourceColumn: hotel_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_id
+		dataType: string
+		lineageTag: 075c9763-5bf5-4e13-a865-4ac3b934868c
+		sourceLineageTag: city_id
+		summarizeBy: none
+		sourceColumn: city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_city = entity
+		mode: directLake
+		source
+			entityName: dim_city
+			schemaName: gold
+			expressionSource: 'DirectLake - HappyBooking_Warehouse'
+

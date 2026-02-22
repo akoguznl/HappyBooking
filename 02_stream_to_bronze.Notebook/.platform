@@ -1,11 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "Eventstream",
-    "displayName": "HappyBooking_Eventstream"
+    "type": "Notebook",
+    "displayName": "02_stream_to_bronze",
+    "description": "New notebook"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "834efb7f-c154-88bf-420d-fc3dfd4a5366"
+    "logicalId": "4088cbc7-4d66-842c-4e8a-f0e14cb5cc1c"
   }
 }

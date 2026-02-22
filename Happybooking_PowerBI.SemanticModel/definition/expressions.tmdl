@@ -1,0 +1,9 @@
+expression 'DirectLake - HappyBooking_Warehouse' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/4469d25c-bf26-4abf-a3d9-12b6ba355076/672b12ba-0fbf-424b-9b20-28c413ec2ab0", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: 06ed154a-98ea-44b8-8ef7-1cb66acb6a36
+
+	annotation PBI_IncludeFutureArtifacts = False
+
